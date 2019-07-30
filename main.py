@@ -33,4 +33,17 @@ GLXSZ3DStringToAddTmp1 = "example_v1.0" # "";"_SaWLens";"_nPlanck";"_v01"
 # additional sharp priors
 SharpPriorsToAddString = "none" # defaults include "PUniv" "TUniv" and "none"
 
-working_directory = os.path.join(os.getcwd(),"data") # be read in from a config file at some point 
+working_directory = os.path.join(os.getcwd(),"data") # be read in from a config file at some point
+
+if qPriorString == "spherical":
+    qPriorString = "sph"
+else:
+    qPriorString = "ell"
+
+if XSZProjStringToAddTmp1 != "" and XSZProjStringToAddTmp1[0] != "_":
+    XSZProjStringToAddTmp1 += "_"
+
+if GLXSZ3DStringToAddTmp1 != "" and GLXSZ3DStringToAddTmp1[0] != "_":
+    GLXSZ3DStringToAddTmp1 += "_"
+
+
