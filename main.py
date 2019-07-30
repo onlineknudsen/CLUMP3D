@@ -1,4 +1,5 @@
 import os
+import file_readers
 # markov chain monte carlo variables (ML)
 nMCMCTimes = 2
 nMCMCTimesXSZ = 1
