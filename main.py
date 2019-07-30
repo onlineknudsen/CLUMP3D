@@ -41,9 +41,9 @@ else:
     qPriorString = "ell"
 
 if XSZProjStringToAddTmp1 != "" and XSZProjStringToAddTmp1[0] != "_":
-    XSZProjStringToAddTmp1 += "_"
+    XSZProjStringToAddTmp1 = "_" + XSZProjStringToAddTmp1
 
 if GLXSZ3DStringToAddTmp1 != "" and GLXSZ3DStringToAddTmp1[0] != "_":
-    GLXSZ3DStringToAddTmp1 += "_"
+    GLXSZ3DStringToAddTmp1 = "_" + GLXSZ3DStringToAddTmp1
 
-
+print(GLXSZ3DStringToAddTmp1)
