@@ -1,3 +1,4 @@
+import os
 # markov chain monte carlo variables (ML)
 nMCMCTimes = 2
 nMCMCTimesXSZ = 1
@@ -32,3 +33,5 @@ GLXSZ3DStringToAddTmp1 = "example_v1.0" # "";"_SaWLens";"_nPlanck";"_v01"
 # additional sharp priors
 SharpPriorsToAddString = "none" # defaults include "PUniv" "TUniv" and "none"
 
+working_directory = os.path.join(os.getcwd(),"data") # be read in from a config file at some point 
+print(os.getcwd())
