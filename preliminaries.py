@@ -24,3 +24,16 @@ omegaM0Planck = 0.3175
 sigma8Planck = 0.8344
 hPlanck = 0.671
 omegaLambda0Planck = 1 - omegaM0Planck
+
+# this was commented out originally, dunno if it'll be important, i'm guessing not though (ML)
+# {\[CapitalOmega]M0Tmp1 = \[CapitalOmega]M0XXL, \[CapitalOmega]\
+# \[CapitalLambda]0Tmp1 = 1. - \[CapitalOmega]M0XXL, 
+#  hTmp1 = hXXL}; {\[CapitalOmega]M0Tmp1 = \[CapitalOmega]M0PSZ, \
+# \[CapitalOmega]\[CapitalLambda]0Tmp1 = 1 - \[CapitalOmega]M0PSZ, 
+#  hTmp1 = hPSZ};
+# {\[CapitalOmega]M0Tmp1 = \[CapitalOmega]M0XXL, hTmp1 = hXXL};
+# {\[CapitalOmega]M0Tmp1 = \[CapitalOmega]M0PSZ, hTmp1 = hPSZ};
+# {\[CapitalOmega]M0Tmp1 = 0.3, hTmp1 = 0.7};
+
+def EzLambda(z, omegaM0, omegaLambda0):
+    return sqrt((1+z)**3 * omegaM0 + (1+z)**2 * (1 - omegaM0- o megaLambda0) +omegaLambda0)
