@@ -2,7 +2,7 @@
 
 import math
 
-# SubMKS' table is as follows:TCMB = 2.728
+# SubMKS' table is as follows, we'll probably use astropy and scipy for the vast majority of this
 s = 1
 day = 86400
 year = 3.15576*10**7
@@ -22,6 +22,7 @@ me = 9.10939*10**-31
 mu = 1.66054*10**-27
 mp = 1.67262*10**-27
 # MSun already there
+TCMB = 2.728
 sigmaT = 6.65246*10**-29
 hPlankConstant = 6.62608*10**-34
 eV = 1.60218*10**-19
@@ -69,4 +70,5 @@ def EzLambda(z, omegaM0, omegaLambda0):
 
 # dunno what this line does but we'll figure it out soon: DInter = Interpolation[Table[{z, DistLambda[0,z,omegaM0Tmp1,omegaLambda0Tmp1]},{z,0,5,0.02}]]
 
-DToCGSFac =
+DToCGSFac = c/(cm*3.24078*10**-18*0.7)
+print(DToCGSFac)
