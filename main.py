@@ -48,3 +48,6 @@ if GLXSZ3DStringToAddTmp1 != "" and GLXSZ3DStringToAddTmp1[0] != "_":
     GLXSZ3DStringToAddTmp1 = "_" + GLXSZ3DStringToAddTmp1
 
 print(GLXSZ3DStringToAddTmp1)
+
+# omegaM0v, hv, pull from astropy
+# omegaLambda0v = 1 - omegaM0v
