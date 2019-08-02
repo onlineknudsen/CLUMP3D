@@ -1,20 +1,19 @@
-def import_dat_file(file_path):
-    with open(file_path, "r") as dat_file:
-        data = []
-        line = dat_file.readline()
+from cluster_config import GLConfig
+
+def import_gl_info(path):
+    with open(path, "r") as dat_file:
+        theta_ev_sum = 0.0
+        i = 0
         for line in dat_file:
             line.strip()
-            if line[0] == "#" or line[0] == ";;" or line[0] == "":
+            if line[0] == "#" or line[0] == "":
                 continue
             else:
-                entries = line.split()
-                new_entry = []
-                for e in entries:
-                    value = None
-                    try:
-                        value = float(e)
-                    except ValueError:
-                        value = e
-                    new_entry.append(value)
-                    data.append(new_entry)
-    return data
+                if i == 0:
+                    GLConfig.src_redshift = float(line)
+                elif i == 1:
+                    GLConfig.nslv = float(line)
+                else:
+                    theta_ev_sum += float(line)
+                i += 1
+        GLConfig.theta_ev = theta_ev_sum / 2
