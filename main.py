@@ -1,5 +1,6 @@
 import os
-import file_readers
+from file_readers import import_cluster_info, import_gl_info, import_sz_info
+import cluster_config
 # markov chain monte carlo variables (ML)
 nMCMCTimes = 2
 nMCMCTimesXSZ = 1
@@ -33,8 +34,8 @@ GLXSZ3DStringToAddTmp1 = "example_v1.0" # "";"_SaWLens";"_nPlanck";"_v01"
 
 # additional sharp priors
 SharpPriorsToAddString = "none" # defaults include "PUniv" "TUniv" and "none"
-
-working_directory = os.path.join(os.getcwd(),"data") # be read in from a config file at some point
+cluster_name = "macsj0429"
+working_directory = os.path.join(os.getcwd(), "data", cluster_name) # be read in from a config file at some point
 
 if qPriorString == "spherical":
     qPriorString = "sph"
@@ -51,3 +52,6 @@ print(GLXSZ3DStringToAddTmp1)
 
 # omegaM0v, hv, pull from astropy
 # omegaLambda0v = 1 - omegaM0v
+import_cluster_info(working_directory)
+import_gl_info(working_directory)
+import_sz_info(working_directory)

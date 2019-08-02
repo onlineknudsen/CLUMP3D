@@ -1,8 +1,13 @@
-# 1. source redshift (background z)
-# 2. NSLv
-# 3. thetaEvLTM
-# 4. thetaEvNFW
+# 1. source redshift (background z for WL galaxies)
+# 2. NSLv (number of multiple images?)
+# 3. RA_GL
+# 4. DEC_GL
+# 5. thetaEvLTM (einstein radius from LTM method)
+# 6. thetaEvNFW (einstein radius from NFW method)
+
 1.299
 10
+67.400028
+-2.8852066
 15.1
 16.2
