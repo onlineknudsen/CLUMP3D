@@ -71,4 +71,11 @@ def EzLambda(z, omegaM0, omegaLambda0):
 # dunno what this line does but we'll figure it out soon: DInter = Interpolation[Table[{z, DistLambda[0,z,omegaM0Tmp1,omegaLambda0Tmp1]},{z,0,5,0.02}]]
 
 DToCGSFac = c/(cm*3.24078*10**-18*0.7)
-print(DToCGSFac)
+
+def fDeltaM(delta, z, omegaM0, omegaLambda0):
+    return EzLambda(z, omegaM0, omegaLambda0)**2/((1+z)**3*omegaM0)*delta
+
+def fDeltaC(deltaM, z, omegaM0, omegaLambda0):
+    return ((1+z)**3*omegaM0)/EzLambda(z, omegaM0, omegaLambda0)**2*deltaM
+
+# growth function requires an integration so i'll have to crossreference that in numpy soon 
