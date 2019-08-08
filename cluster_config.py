@@ -1,9 +1,15 @@
+# GL data
 src_redshift = 0.0
 nslv = 0.0
 theta_ev = 0.0
 ra = 0.0
 dec = 0.0
+
+# global cluster data
 redshift = 0.0
+
+#czakon tab 3
+frac_beam_smoothing = 0.0
 
 #these variable names are ugly right now, they come from MLE-E_WL.fits
 mean_wl_cdelt1 = 0.0

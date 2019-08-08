@@ -22,7 +22,7 @@ def import_sz_info(working_dir):
                 continue
             else:
                 if i == 0:
-                    cc.sze_sn = float(line)
+                    cc.frac_beam_smoothing = float(line)
 
 
 def import_gl_info(working_dir):
