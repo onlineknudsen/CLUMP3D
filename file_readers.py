@@ -44,14 +44,14 @@ def import_gl_mean_info(working_dir):
     hdul = fits.open(os.path.join(working_dir, "GL", "U16", "MLE-E_WL.fits")) #saves it as an HDUList, will look up more documentation soon
     #hdul.info() would give us some debugging opportunities here
     head = hdul[0].header
-    cluster_config.mean_gl_cdelt1 = head["CDELT1"]
-    cluster_config.mean_gl_cdelt2 = head["CDELT2"]
-    cluster_config.mean_gl_crval1 = head["CRVAL1"]
-    cluster_config.mean_gl_crval2 = head["CRVAL2"]
-    cluster_config.mean_gl_naxis1 = head["NAXIS1"]
-    cluster_config.mean_gl_naxis2 = head["NAXIS2"]
-    cluster_config.mean_gl_crpix1 = head["CRPIX1"]
-    cluster_config.mean_gl_crpix2 = head["CRPIX2"]
+    cluster_config.mean_wl_cdelt1 = head["CDELT1"] # pixel size in degrees, x-direction (RA)
+    cluster_config.mean_wl_cdelt2 = head["CDELT2"] # ' ', y-direction (declination)
+    cluster_config.mean_wl_crval1 = head["CRVAL1"] # RA (right ascension, spherical coordinate system) in degrees
+    cluster_config.mean_wl_crval2 = head["CRVAL2"] # declination, degrees, relative to a reference pixel
+    cluster_config.mean_wl_naxis1 = head["NAXIS1"] # number of pixels, RA direction
+    cluster_config.mean_wl_naxis2 = head["NAXIS2"] # number of pixels, declination direction
+    cluster_config.mean_wl_crpix1 = head["CRPIX1"] # RA pixel number of reference pixel, one-indexed
+    cluster_config.mean_wl_crpix2 = head["CRPIX2"] # declination pixel number of the reference pixel, one-indexed
 
     # need to figure out what these lines do: 
     '''kGridTmp1 = kTabFits[[2, 1]] // Chop;
