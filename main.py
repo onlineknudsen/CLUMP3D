@@ -1,5 +1,5 @@
 import os
-from file_readers import import_cluster_info, import_gl_info, import_sz_info
+from file_readers import *
 import cluster_config
 # markov chain monte carlo variables (ML)
 nMCMCTimes = 2
@@ -48,10 +48,9 @@ if XSZProjStringToAddTmp1 != "" and XSZProjStringToAddTmp1[0] != "_":
 if GLXSZ3DStringToAddTmp1 != "" and GLXSZ3DStringToAddTmp1[0] != "_":
     GLXSZ3DStringToAddTmp1 = "_" + GLXSZ3DStringToAddTmp1
 
-print(GLXSZ3DStringToAddTmp1)
-
 # omegaM0v, hv, pull from astropy
 # omegaLambda0v = 1 - omegaM0v
 import_cluster_info(working_directory)
 import_gl_info(working_directory)
 import_sz_info(working_directory)
+convergence_map = import_gl_mean_info(working_directory)

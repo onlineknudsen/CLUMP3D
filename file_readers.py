@@ -1,5 +1,6 @@
 import cluster_config as cc
 from astropy.io import fits
+import numpy as np
 import os
 
 def import_cluster_info(working_dir):
@@ -53,22 +54,29 @@ def import_gl_mean_info(working_dir):
     hdul = fits.open(os.path.join(working_dir, "GL", "U16", "MLE-E_WL.fits")) #saves it as an HDUList, will look up more documentation soon
     #hdul.info() would give us some debugging opportunities here
     head = hdul[0].header
-    cc.mean_wl_cdelt1 = head["CDELT1"] # pixel size in degrees, x-direction (RA)
-    cc.mean_wl_cdelt2 = head["CDELT2"] # ' ', y-direction (declination)
-    cc.mean_wl_crval1 = head["CRVAL1"] # RA (right ascension, spherical coordinate system) in degrees
-    cc.mean_wl_crval2 = head["CRVAL2"] # declination, degrees, relative to a reference pixel
-    cc.mean_wl_naxis1 = head["NAXIS1"] # number of pixels, RA direction
-    cc.mean_wl_naxis2 = head["NAXIS2"] # number of pixels, declination direction
-    cc.mean_wl_crpix1 = head["CRPIX1"] # RA pixel number of reference pixel, one-indexed
-    cc.mean_wl_crpix2 = head["CRPIX2"] # declination pixel number of the reference pixel, one-indexed
+    pix_size_ra = head["CDELT1"] # pixel size in degrees, x-direction (RA)
+    pix_size_dec = head["CDELT2"] # ' ', y-direction (declination)
+    ref_ra = head["CRVAL1"] # RA (right ascension, spherical coordinate system) in degrees
+    ref_dec = head["CRVAL2"] # declination, degrees, relative to a reference pixel
+    n_pix_ra = head["NAXIS1"] # number of pixels, RA direction
+    n_pix_dec = head["NAXIS2"] # number of pixels, declination direction
+    ref_ra_pix = head["CRPIX1"] # RA pixel number of reference pixel, one-indexed
+    ref_dec_pix = head["CRPIX2"] # declination pixel number of the reference pixel, one-indexed
 
-    # need to figure out what these lines do:
-    '''kGridTmp1 = kTabFits[[2, 1]] // Chop;
+    length = n_pix_ra * n_pix_dec
 
-        (*{0.,0} (physical coordinates) is the optical coordinates*)
-        DataGridTabWL2 =
-            Partition[
-                Table[{({j, i}(*-CentralPixCoord*)), ({j, i} - {CRPIX1, CRPIX2})*{CDELT1,CDELT1} + {CRVAL1, CRVAL2}, kConvFac2*kGridTmp1[[i, j]],
-       0.(*[Delta]k*)} // Flatten, {i, 1, NAXIS2}, {j, 1, NAXIS1}] //
-     Flatten, 6];'''
+    fits_data = hdul[0].data[::-1] # astropy imports files reversed so this unreverses it
+    data = np.empty((length, 6))
+    i = 0
+    for (index, value) in np.ndenumerate(fits_data):
+        row = index[0] + 1
+        col = index[1] + 1
+        data[i] = np.array([col, row,
+            col - ref_ra_pix * pix_size_ra + ref_ra,
+            row - ref_dec_pix * pix_size_ra + ref_dec,
+            fits_data[index], # conversion factor
+            0
+        ])
+        i += 1
     hdul.close()
+    return data
