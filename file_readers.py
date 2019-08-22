@@ -50,7 +50,7 @@ def import_gl_info(working_dir):
 
 # trying to make FITS readers here
 
-def import_gl_mean_info(working_dir):
+def import_wl_convergence_map(working_dir):
     hdul = fits.open(os.path.join(working_dir, "GL", "U16", "MLE-E_WL.fits")) #saves it as an HDUList, will look up more documentation soon
     #hdul.info() would give us some debugging opportunities here
     head = hdul[0].header
@@ -74,9 +74,13 @@ def import_gl_mean_info(working_dir):
         data[i] = np.array([col, row,
             col - ref_ra_pix * pix_size_ra + ref_ra,
             row - ref_dec_pix * pix_size_ra + ref_dec,
-            fits_data[index], # conversion factor
+            fits_data[index], # conversion factor?
             0
         ])
         i += 1
     hdul.close()
     return data
+
+def import_wl_cov_matrix(working_dir):
+    path = os.path.join(working_dir, "GL", "U16", "MLE-ECOV+LSS_WL.pack")
+    return np.loadtxt(path, skiprows=1)

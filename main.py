@@ -53,4 +53,5 @@ if GLXSZ3DStringToAddTmp1 != "" and GLXSZ3DStringToAddTmp1[0] != "_":
 import_cluster_info(working_directory)
 import_gl_info(working_directory)
 import_sz_info(working_directory)
-convergence_map = import_gl_mean_info(working_directory)
+conv_map_wl = import_wl_convergence_map(working_directory)
+cov_mat_wl = import_wl_cov_matrix(working_directory)
