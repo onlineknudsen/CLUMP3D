@@ -34,8 +34,6 @@ GLXSZ3DStringToAddTmp1 = "example_v1.0" # "";"_SaWLens";"_nPlanck";"_v01"
 
 # additional sharp priors
 SharpPriorsToAddString = "none" # defaults include "PUniv" "TUniv" and "none"
-cluster_name = "macsj0429"
-working_directory = os.path.join(os.getcwd(), "data", cluster_name) # be read in from a config file at some point
 
 if qPriorString == "spherical":
     qPriorString = "sph"
@@ -50,8 +48,8 @@ if GLXSZ3DStringToAddTmp1 != "" and GLXSZ3DStringToAddTmp1[0] != "_":
 
 # omegaM0v, hv, pull from astropy
 # omegaLambda0v = 1 - omegaM0v
-import_cluster_info(working_directory)
-import_gl_info(working_directory)
-import_sz_info(working_directory)
-conv_map_wl = import_wl_convergence_map(working_directory)
-cov_mat_wl = import_wl_cov_matrix(working_directory)
+import_cluster_info()
+import_gl_info()
+import_sz_info()
+conv_map_wl = import_wl_convergence_map()
+cov_mat_wl = import_wl_cov_matrix()

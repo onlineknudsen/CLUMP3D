@@ -3,8 +3,8 @@ from astropy.io import fits
 import numpy as np
 import os
 
-def import_cluster_info(working_dir):
-    with open(os.path.join(working_dir, "cluster_info.dat"), "r") as dat_file:
+def import_cluster_info():
+    with open(os.path.join(cc.working_directory, "cluster_info.dat"), "r") as dat_file:
         i = 0
         for line in dat_file:
             line.strip()
@@ -14,8 +14,8 @@ def import_cluster_info(working_dir):
                 if i == 0:
                     cc.redshift = float(line)
 
-def import_sz_info(working_dir):
-    with open(os.path.join(working_dir, "SZ", "sz_info.dat"), "r") as dat_file:
+def import_sz_info():
+    with open(os.path.join(cc.working_directory, "SZ", "sz_info.dat"), "r") as dat_file:
         i = 0
         for line in dat_file:
             line.strip()
@@ -26,8 +26,8 @@ def import_sz_info(working_dir):
                     cc.frac_beam_smoothing = float(line)
 
 
-def import_gl_info(working_dir):
-    with open(os.path.join(working_dir, "GL", "gl_info.dat"), "r") as dat_file:
+def import_gl_info():
+    with open(os.path.join(cc.working_directory, "GL", "gl_info.dat"), "r") as dat_file:
         theta_ev_sum = 0.0
         i = 0
         for line in dat_file:
@@ -43,6 +43,8 @@ def import_gl_info(working_dir):
                     cc.ra = float(line)
                 elif i == 3:
                     cc.dec = float(line)
+                elif i == 4:
+                    cc.wl_omega_m = float(line)
                 else:
                     theta_ev_sum += float(line)
                 i += 1
@@ -50,8 +52,8 @@ def import_gl_info(working_dir):
 
 # trying to make FITS readers here
 
-def import_wl_convergence_map(working_dir):
-    hdul = fits.open(os.path.join(working_dir, "GL", "U16", "MLE-E_WL.fits")) #saves it as an HDUList, will look up more documentation soon
+def import_wl_convergence_map():
+    hdul = fits.open(os.path.join(cc.working_directory, "GL", "U16", "MLE-E_WL.fits")) #saves it as an HDUList, will look up more documentation soon
     #hdul.info() would give us some debugging opportunities here
     head = hdul[0].header
     pix_size_ra = head["CDELT1"] # pixel size in degrees, x-direction (RA)
@@ -81,6 +83,6 @@ def import_wl_convergence_map(working_dir):
     hdul.close()
     return data
 
-def import_wl_cov_matrix(working_dir):
-    path = os.path.join(working_dir, "GL", "U16", "MLE-ECOV+LSS_WL.pack")
+def import_wl_cov_matrix():
+    path = os.path.join(cc.working_directory, "GL", "U16", "MLE-ECOV+LSS_WL.pack")
     return np.loadtxt(path, skiprows=1)
