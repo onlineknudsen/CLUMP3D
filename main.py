@@ -1,6 +1,6 @@
-import os
-from file_readers import *
 import cluster_config
+import file_readers
+import os
 import preliminaries
 
 ###########################################################################
@@ -72,6 +72,7 @@ rUnits = preliminaries.MpcMKS / preliminaries.hv
 PUnits = preliminaries.G * MUnits**2 / rUnits**2   # G M^2 / (R * R^3)
 ###########################################################################
 
-import_cluster_info()
-import_gl_info()
-import_sz_info()
+cluster_configuration = cluster_config.ClusterConfig()
+file_readers.import_cluster_info(cluster_configuration)
+file_readers.import_gl_info(cluster_configuration)
+file_readers.import_sz_info(cluster_configuration)

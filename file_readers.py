@@ -1,9 +1,9 @@
-import cluster_config as cc
 from astropy.io import fits
 import numpy as np
 import os
 
-def import_cluster_info():
+def import_cluster_info(cc):
+    '''cc is a ClusterConfig object, defined in cluster_config.py'''
     with open(os.path.join(cc.working_directory, "cluster_info.dat"), "r") as dat_file:
         i = 0
         for line in dat_file:
@@ -14,7 +14,8 @@ def import_cluster_info():
                 if i == 0:
                     cc.redshift = float(line)
 
-def import_sz_info():
+def import_sz_info(cc):
+    '''cc is a ClusterConfig object, defined in cluster_config.py'''
     with open(os.path.join(cc.working_directory, "SZ", "sz_info.dat"), "r") as dat_file:
         i = 0
         for line in dat_file:
@@ -26,7 +27,8 @@ def import_sz_info():
                     cc.frac_beam_smoothing = float(line)
 
 
-def import_gl_info():
+def import_gl_info(cc):
+    '''cc is a ClusterConfig object, defined in cluster_config.py'''
     with open(os.path.join(cc.working_directory, "GL", "gl_info.dat"), "r") as dat_file:
         theta_ev_sum = 0.0
         i = 0
