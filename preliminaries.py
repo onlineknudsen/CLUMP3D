@@ -57,9 +57,9 @@ omegaLambda0Planck = 1 - omegaM0Planck
 
 # this was commented out originally, dunno if it'll be important, i'm guessing not though (ML)
 # {\[CapitalOmega]M0Tmp1 = \[CapitalOmega]M0XXL, \[CapitalOmega]\
-# \[CapitalLambda]0Tmp1 = 1. - \[CapitalOmega]M0XXL, 
+# \[CapitalLambda]0Tmp1 = 1. - \[CapitalOmega]M0XXL,
 #  hTmp1 = hXXL}; {\[CapitalOmega]M0Tmp1 = \[CapitalOmega]M0PSZ, \
-# \[CapitalOmega]\[CapitalLambda]0Tmp1 = 1 - \[CapitalOmega]M0PSZ, 
+# \[CapitalOmega]\[CapitalLambda]0Tmp1 = 1 - \[CapitalOmega]M0PSZ,
 #  hTmp1 = hPSZ};
 # {\[CapitalOmega]M0Tmp1 = \[CapitalOmega]M0XXL, hTmp1 = hXXL};
 # {\[CapitalOmega]M0Tmp1 = \[CapitalOmega]M0PSZ, hTmp1 = hPSZ};
@@ -78,4 +78,4 @@ def fDeltaM(delta, z, omegaM0, omegaLambda0):
 def fDeltaC(deltaM, z, omegaM0, omegaLambda0):
     return ((1+z)**3*omegaM0)/EzLambda(z, omegaM0, omegaLambda0)**2*deltaM
 
-# growth function requires an integration so i'll have to crossreference that in numpy soon 
+# growth function requires an integration so i'll have to crossreference that in numpy soon
