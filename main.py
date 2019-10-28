@@ -1,7 +1,7 @@
 import cluster_config
 import file_readers
 import os
-import preliminaries
+import preliminaries as prelim
 
 ###########################################################################
 # markov chain monte carlo variables (ML)
@@ -67,12 +67,40 @@ if GLXSZ3DStringToAddTmp1 != "" and GLXSZ3DStringToAddTmp1[0] != "_":
 # omegaM0v, hv, pull from astropy
 # omegaLambda0v = 1 - omegaM0v
 
-MUnits = 10**15 * preliminaries.MSunMKS / preliminaries.hv
-rUnits = preliminaries.MpcMKS / preliminaries.hv
-PUnits = preliminaries.G * MUnits**2 / rUnits**2   # G M^2 / (R * R^3)
+MUnits = 10**15 * prelim.MSunMKS / prelim.hv
+rUnits = prelim.MpcMKS / prelim.hv
+PUnits = prelim.G * MUnits**2 / rUnits**2   # G M^2 / (R * R^3)
 ###########################################################################
 
+###########################################################################
+# DATA SECTION
+
+SZEDeltaThetaString = ""
+
+# JS - define working directories and WL center position
+ThetaInnerCut = 5./60 #(arcmin); (*M1206, §4.2 in umetsu+12*)
+# TODO - some code from this section omitted; add it in (if relevant)
+
+# "some conversion factors from observed quantities to physical quantities" -JS
+nHeOnnH = 7.72 * 10**(-2) # primordial
+mh, xeh, xh = (0.01, 0.005, 5*10**(-4)) # electrons from elements heavier than helium
+nHOnnev = 1 / (1 + 2 * nHeOnnH + xeh)
+muICMv = (1 + 4 * nHeOnnH + mh) / (2 + 3 * nHeOnnH + xeh + xh)
+RhoGasOnnev = prelim.mu * (1 + 4 * nHeOnnH + mh) / (1 + 2 * nHeOnnH + xeh)
+zLensingSourcesv = 20000 # reference redshift of WL background galaxies
+
+DHv = lambda h: prelim.c / prelim.H0(h)
+
+
+# read in weak lensing data from Umetsu + 2016
+omegaM0v2 = 0.27
+hv2 = 0.7
+omegaLambda0v2 = 1 - omegaM0v2
+
+
+# TODO - determine how this plays into the imprort process
 cluster_configuration = cluster_config.ClusterConfig()
 file_readers.import_cluster_info(cluster_configuration)
 file_readers.import_gl_info(cluster_configuration)
 file_readers.import_sz_info(cluster_configuration)
+###########################################################################
