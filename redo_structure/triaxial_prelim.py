@@ -37,6 +37,37 @@
 # \[Sigma]T->6.65246*10^-29(* m^2 *),hPlanckConstant->6.6260755*10^-34(*kg m^2 s^-1*),
 # eV->1.60217653*10^-19(*J=kg m^2 s^-2*),keV->10^3 eV,erg->10^-7(*Joule*),
 # Jy->10^-26};
+SubMKS = {
+    's':1,
+    'day':24*60*60,
+    'year':365.25*24*60*60,
+    'g':10**-3,
+    'gr':10**-3,
+    'cm':10**-2,
+    'km':10**3,
+    'pc':3.08567802*(10**16),
+    'AU':1.49597870696*(10**11), # m
+    'G':6.673*(10**-11), # (Meter^2 Newton)/Kilogram^2
+    'c':299792458, # Meter/Second
+    'kB':1.3806503*(10**-23), # m^2 kg s^-2 K^-1
+    'TCMB':2.728, # K
+    'me':9.1093897*(10**-31),
+    'mu':1.660538921*(10**-27), # unit\[AGrave] di massa atomica, kg
+    'mp':1.672621777*(10**-27), # proton mass
+    'MSun':1.9891030*(10**30), # kg
+    'SigmaT':6.65246*(10**-29), # m^2
+    'hPlanckConstant':6.6260755*(10**-34), # kg m^2 s^-1
+    'eV':1.60217653*(10**-19), # J=kg m^2 s^-2
+    'erg':10**-7, # Joule
+    'Jy':10**-26
+}
+SubMKS['kpc'] = 10**3 * SubMKS['pc']
+SubMKS['Mpc'] = 10**6 * SubMKS['pc']
+SubMKS['Gpc'] = 10**9 * SubMKS['pc']
+SubMKS['keV'] = 10**3 * SubMKS['eV']
+
+assert len(SubMKS) == 26 # confirmation of length from Mathematica notebook
+
 #
 #
 # DegToRad=\[Pi]/180;
