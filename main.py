@@ -1,8 +1,9 @@
 import os
 from file_readers import *
 import cluster_config
+import weak_lensing as wl
 # markov chain monte carlo variables (ML)
-nMCMCTimes = 2
+"""nMCMCTimes = 2
 nMCMCTimesXSZ = 1
 nMCMCTimesGL = 1
 nBFTimesXSZ = 1
@@ -47,7 +48,10 @@ if GLXSZ3DStringToAddTmp1 != "" and GLXSZ3DStringToAddTmp1[0] != "_":
     GLXSZ3DStringToAddTmp1 = "_" + GLXSZ3DStringToAddTmp1
 
 # omegaM0v, hv, pull from astropy
-# omegaLambda0v = 1 - omegaM0v
+# omegaLambda0v = 1 - omegaM0v"""
 import_cluster_info()
 import_gl_info()
-import_sz_info()
+
+wl_data = wl.wl_data()
+
+# future goals: more data types, generic data import
