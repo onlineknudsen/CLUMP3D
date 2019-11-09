@@ -1,4 +1,4 @@
-import cluster_config
+# import cluster_config - ADD BACK SOON
 import file_readers
 import os
 import preliminaries as prelim
@@ -62,14 +62,11 @@ if GLXSZ3DStringToAddTmp1 != "" and GLXSZ3DStringToAddTmp1[0] != "_":
 
 ###########################################################################
 # cosmological parameters and units (JS)
-
-# SEE preliminaries.py
-# omegaM0v, hv, pull from astropy
-# omegaLambda0v = 1 - omegaM0v
-
-MUnits = 10**15 * prelim.MSunMKS / prelim.hv
-rUnits = prelim.MpcMKS / prelim.hv
-PUnits = prelim.G * MUnits**2 / rUnits**2   # G M^2 / (R * R^3)
+(omegaM0v, hv) = (0.3, 0.7)
+omegaLambda0v = 1 - omegaM0v
+MUnits = 10**15 * prelim.MSunMKS / hv
+rUnits = prelim.MpcMKS / hv
+PUnits = triaxial_prelim.SubMKS['G'] * MUnits**2 / rUnits**4 # G M^2 / (R * R^3)
 ###########################################################################
 
 ###########################################################################

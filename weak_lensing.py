@@ -2,12 +2,12 @@ from astropy.cosmology import WMAP9 as cosmo
 from astropy.cosmology import FlatLambdaCDM
 from astropy.constants import c, G
 from math import pi
-import cluster_config as cc
 import numpy as np
 
 z_src_infinity = 20000.0
 
-def conversion_factor():
+def conversion_factor(cc):
+    '''cc is a ClusterConfig object, defined in cluster_config.py'''
     alt_cosmo = FlatLambdaCDM(70, cc.wl_omega_m)
 
     dd1 = cosmo.angular_diameter_distance(cc.redshift)
@@ -25,11 +25,13 @@ def conversion_factor():
 def lensing_crit_surf_density(ds, dd, dds):
     return (c * c * ds)/(4 * pi * G * dds * dd)
 
-def import_wl_cov_matrix():
+def import_wl_cov_matrix(cc):
+    '''cc is a ClusterConfig object, defined in cluster_config.py'''
     path = os.path.join(cc.working_directory, "GL", "U16", "MLE-ECOV+LSS_WL.pack")
     return np.loadtxt(path, skiprows=1)
 
-def import_wl_convergence_map():
+def import_wl_convergence_map(cc):
+    '''cc is a ClusterConfig object, defined in cluster_config.py'''
     hdul = fits.open(os.path.join(cc.working_directory, "GL", "U16", "MLE-E_WL.fits")) #saves it as an HDUList, will look up more documentation soon
     #hdul.info() would give us some debugging opportunities here
     head = hdul[0].header

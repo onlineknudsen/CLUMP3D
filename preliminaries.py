@@ -2,6 +2,7 @@
 
 import math
 
+# SubMKS is meter/kilogram/second standard for units (for substitution)
 # SubMKS' table is as follows, we'll probably use astropy and scipy for the vast majority of this
 s = 1
 day = 86400
@@ -57,20 +58,25 @@ omegaLambda0Planck = 1 - omegaM0Planck
 
 # this was commented out originally, dunno if it'll be important, i'm guessing not though (ML)
 # {\[CapitalOmega]M0Tmp1 = \[CapitalOmega]M0XXL, \[CapitalOmega]\
-# \[CapitalLambda]0Tmp1 = 1. - \[CapitalOmega]M0XXL, 
+# \[CapitalLambda]0Tmp1 = 1. - \[CapitalOmega]M0XXL,
 #  hTmp1 = hXXL}; {\[CapitalOmega]M0Tmp1 = \[CapitalOmega]M0PSZ, \
-# \[CapitalOmega]\[CapitalLambda]0Tmp1 = 1 - \[CapitalOmega]M0PSZ, 
+# \[CapitalOmega]\[CapitalLambda]0Tmp1 = 1 - \[CapitalOmega]M0PSZ,
 #  hTmp1 = hPSZ};
 # {\[CapitalOmega]M0Tmp1 = \[CapitalOmega]M0XXL, hTmp1 = hXXL};
 # {\[CapitalOmega]M0Tmp1 = \[CapitalOmega]M0PSZ, hTmp1 = hPSZ};
 # {\[CapitalOmega]M0Tmp1 = 0.3, hTmp1 = 0.7};
+
+CapitalOmegaM0Tmp1 = 0.3
+CapitalOmegaCapitalLambda0Tmp1 = 0.7
+hTmp1 = 0.7
 
 def EzLambda(z, omegaM0, omegaLambda0):
     return math.sqrt((1+z)**3 * omegaM0 + (1+z)**2 * (1 - omegaM0 - omegaLambda0) + omegaLambda0)
 
 # dunno what this line does but we'll figure it out soon: DInter = Interpolation[Table[{z, DistLambda[0,z,omegaM0Tmp1,omegaLambda0Tmp1]},{z,0,5,0.02}]]
 
-DToCGSFac = c/(cm*3.24078*10**-18*0.7)
+H0 = lambda h: 3.24078*10**-18 * h # determined from running snippet
+DToCGSFac = c/(cm**H0(hTmp1))
 
 def fDeltaM(delta, z, omegaM0, omegaLambda0):
     return EzLambda(z, omegaM0, omegaLambda0)**2/((1+z)**3*omegaM0)*delta
@@ -78,4 +84,4 @@ def fDeltaM(delta, z, omegaM0, omegaLambda0):
 def fDeltaC(deltaM, z, omegaM0, omegaLambda0):
     return ((1+z)**3*omegaM0)/EzLambda(z, omegaM0, omegaLambda0)**2*deltaM
 
-# growth function requires an integration so i'll have to crossreference that in numpy soon 
+# growth function requires an integration so i'll have to crossreference that in numpy soon
