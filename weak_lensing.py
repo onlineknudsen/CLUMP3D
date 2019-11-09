@@ -1,8 +1,11 @@
 from astropy.cosmology import WMAP9 as cosmo
 from astropy.cosmology import FlatLambdaCDM
 from astropy.constants import c, G
-from math import pi
+from astropy.io import fits
+from math import pi, sqrt
+import cluster_config as cc
 import numpy as np
+import os
 
 z_src_infinity = 20000.0
 
@@ -63,3 +66,19 @@ def import_wl_convergence_map(cc):
     return data
 
 # map conversion factor to convergence map and cov mat
+def wl_data(cc):
+    conv_fac = conversion_factor(cc)
+    cov_mat_data = import_wl_cov_matrix(cc)
+    n_pix = int(cov_mat_data[0])
+    conversion = lambda x: conv_fac * conv_fac * x
+    cov_mat_conv_fac = conversion(cov_mat_data[1:n_pix * n_pix])
+    convergence_map = import_wl_convergence_map(cc)
+
+    cov_mat = np.zeros((n_pix, n_pix))
+    tril = np.tril_indices(n_pix)
+    cov_mat[tril] = cov_mat_conv_fac
+
+    cov_mat = np.tril(cov_mat) + np.tril(cov_mat, -1).T
+    convergence_map[:,5] = sqrt(cov_mat.diagonal())
+    return convergence_map
+# do preliminary (2D) fitting just for testing

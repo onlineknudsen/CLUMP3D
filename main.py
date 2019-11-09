@@ -104,3 +104,7 @@ file_readers.import_cluster_info(cluster_configuration)
 file_readers.import_gl_info(cluster_configuration)
 file_readers.import_sz_info(cluster_configuration)
 ###########################################################################
+
+wl_data = wl.wl_data(cluster_configuration)
+
+# future goals: more data types, generic data import
