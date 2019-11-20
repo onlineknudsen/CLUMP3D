@@ -79,6 +79,6 @@ def wl_data(cc):
     cov_mat[tril] = cov_mat_conv_fac
 
     cov_mat = np.tril(cov_mat) + np.tril(cov_mat, -1).T
-    convergence_map[:,5] = sqrt(cov_mat.diagonal())
+    convergence_map[:,5] = sqrt(cov_mat.diagonal()) # Should this be np.sqrt? (EM)
     return convergence_map
 # do preliminary (2D) fitting just for testing
