@@ -2,6 +2,7 @@ import cluster_config
 import file_readers
 import os
 import preliminaries as prelim
+import weak_lensing as wl
 
 ###########################################################################
 # markov chain monte carlo variables (ML)

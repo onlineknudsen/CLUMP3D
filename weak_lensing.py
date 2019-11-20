@@ -11,15 +11,15 @@ z_src_infinity = 20000.0
 
 def conversion_factor(cc):
     '''cc is a ClusterConfig object, defined in cluster_config.py'''
-    alt_cosmo = FlatLambdaCDM(70, cc.wl_omega_m)
+    alt_cosmo = FlatLambdaCDM(70, cc.get("wl_omega_m"))
 
-    dd1 = cosmo.angular_diameter_distance(cc.redshift)
+    dd1 = cosmo.angular_diameter_distance(cc.get("redshift"))
     ds1 = cosmo.angular_diameter_distance(z_src_infinity)
-    dds1 = cosmo.angular_diameter_distance_z1z2(cc.redshift, z_src_infinity)
+    dds1 = cosmo.angular_diameter_distance_z1z2(cc.get("redshift"), z_src_infinity)
 
-    dd2 = alt_cosmo.angular_diameter_distance(cc.redshift)
-    ds2 = alt_cosmo.angular_diameter_distance(cc.src_redshift)
-    dds2 = alt_cosmo.angular_diameter_distance_z1z2(cc.redshift, cc.src_redshift)
+    dd2 = alt_cosmo.angular_diameter_distance(cc.get("redshift"))
+    ds2 = alt_cosmo.angular_diameter_distance(cc.get("src_redshift"))
+    dds2 = alt_cosmo.angular_diameter_distance_z1z2(cc.get("redshift"), cc.get("src_redshift"))
 
     crit_surf_density_1 = lensing_crit_surf_density(ds1, dd1, dds1)
     crit_surf_density_2 = lensing_crit_surf_density(ds2, dd2, dds2)
@@ -30,12 +30,12 @@ def lensing_crit_surf_density(ds, dd, dds):
 
 def import_wl_cov_matrix(cc):
     '''cc is a ClusterConfig object, defined in cluster_config.py'''
-    path = os.path.join(cc.working_directory, "GL", "U16", "MLE-ECOV+LSS_WL.pack")
+    path = os.path.join(cc.get("working_directory"), "GL", "U16", "MLE-ECOV+LSS_WL.pack")
     return np.loadtxt(path, skiprows=1)
 
 def import_wl_convergence_map(cc):
     '''cc is a ClusterConfig object, defined in cluster_config.py'''
-    hdul = fits.open(os.path.join(cc.working_directory, "GL", "U16", "MLE-E_WL.fits")) #saves it as an HDUList, will look up more documentation soon
+    hdul = fits.open(os.path.join(cc.get("working_directory"), "GL", "U16", "MLE-E_WL.fits")) #saves it as an HDUList, will look up more documentation soon
     #hdul.info() would give us some debugging opportunities here
     head = hdul[0].header
     pix_size_ra = head["CDELT1"] # pixel size in degrees, x-direction (RA)
